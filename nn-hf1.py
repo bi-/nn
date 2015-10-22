@@ -150,15 +150,15 @@ def tn_main():
 
 # Train the model 
     exp.train(Tr, V, learning_rate=1e-4, momentum=0.9, min_improvement=0.01)
+    np.set_printoptions(threshold='nan')
 
 # Show confusion matrices on the training/validation splits.
-    for label, (X, y) in (('training:', Tr), ('validation:', V), ('test:', Tst)):
-        print(label)
+    for label, (X, y) in (('Training:', Tr), ('Validation:', V), ('Test:', Tst)):
+        print(label, len(y))
         predicted = exp.network.predict(X)
         result = [(chr(f[0]),chr(f[1]))  for f in zip( predicted, y)]
         print sum([ 1 if (a==b) else 0 for a,b in result ]) / float(len(result))
-        print "(expected,predicted):"
-        print [ (b,a) for a,b in result if a != b]
+        print "Failures (expected,predicted):{}".format([(b,a) for a,b in result if a != b])
         print(confusion_matrix(y, predicted))
 
 if __name__ == '__main__':

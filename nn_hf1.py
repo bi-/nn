@@ -133,16 +133,6 @@ def tn_main():
     Tr,V,Tst = create_dataset(inputs)
 
     climate.enable_default_logging()
-   # Create a classification dataset.
-#X, y = make_classification( n_samples=3000, n_features=100, n_classes=10, n_informative=10)
-#exit(0)
-#X = X.astype('f')
-#y = y.astype('i')
-#cut = int(len(X) * 0.8)  # training / validation split
-#train = X[:cut], y[:cut]
-#valid = X[cut:], y[cut:]
-# Build a classifier model with 100 inputs and 10 outputs.
-    #exp = theanets.Experiment(theanets.Classifier, layers=(654, (654,'relu') , (654,'relu'), (62,'softmax')))
     layer_input = 3 * maximum
     layer_hidden = layer_input / 2
     layer_output = layer_input / 10
@@ -152,7 +142,7 @@ def tn_main():
     exp.train(Tr, V, learning_rate=1e-4, momentum=0.9, min_improvement=0.01)
     np.set_printoptions(threshold='nan')
 
-# Show confusion matrices on the training/validation splits.
+# Show confusion matrices on the training/validation/test splits.
     for label, (X, y) in (('Training:', Tr), ('Validation:', V), ('Test:', Tst)):
         predicted = exp.network.predict(X)
         result = [(chr(f[0]),chr(f[1]))  for f in zip( predicted, y)]

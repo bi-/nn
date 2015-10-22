@@ -154,11 +154,12 @@ def tn_main():
 
 # Show confusion matrices on the training/validation splits.
     for label, (X, y) in (('Training:', Tr), ('Validation:', V), ('Test:', Tst)):
-        print(label, len(y))
         predicted = exp.network.predict(X)
         result = [(chr(f[0]),chr(f[1]))  for f in zip( predicted, y)]
+        failures = [(b,a) for a,b in result if a != b]
+        print(label, len(failures),len(y))
         print sum([ 1 if (a==b) else 0 for a,b in result ]) / float(len(result))
-        print "Failures (expected,predicted):{}".format([(b,a) for a,b in result if a != b])
+        print "Failures (expected,predicted):{}".format(failures)
         print(confusion_matrix(y, predicted))
 
 if __name__ == '__main__':

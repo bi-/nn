@@ -1,6 +1,6 @@
 #!/usr/bin/python
 import unittest
-from tn import *
+from nn-hf1 import *
 
 class TestTn(unittest.TestCase):
 
